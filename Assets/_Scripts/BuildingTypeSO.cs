@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "ScriptableObject/BuildingType")]
+[CreateAssetMenu(menuName = "ScriptableObjects/BuildingType")]
 public class BuildingTypeSO : ScriptableObject
 {
     public string nameString;
