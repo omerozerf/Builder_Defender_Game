@@ -21,7 +21,7 @@ public class ResourcesUI : MonoBehaviour
             float offsetAmount = -160f;
             resourceTransform.GetComponent<RectTransform>().anchoredPosition = new Vector2(offsetAmount * index, 0);
             
-            index++;
+            index++; 
         }
     }
 }
