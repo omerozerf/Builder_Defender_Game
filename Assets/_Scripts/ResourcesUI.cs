@@ -40,6 +40,12 @@ public class ResourcesUI : MonoBehaviour
 
     private void Start()
     {
+        ResourceManager.Instance.OnResourceAmountChanged += ResourceManager_OnResourceAmountChanged;
+        UpdateResourceAmount();
+    }
+
+    private void ResourceManager_OnResourceAmountChanged(object sender, EventArgs e)
+    {
         UpdateResourceAmount();
     }
 
