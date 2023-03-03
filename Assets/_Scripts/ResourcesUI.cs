@@ -7,13 +7,20 @@ using UnityEngine.UI;
 
 public class ResourcesUI : MonoBehaviour
 {
+    private ResourceTypeListSO resourceTypeList;
+    private Dictionary<ResourceTypeSO, Transform> resourceTypeTransformDictionary;
+
+
     private void Awake()
     {
-        ResourceTypeListSO resourceTypeList = Resources.Load<ResourceTypeListSO>(nameof(ResourceTypeListSO));
+        resourceTypeTransformDictionary = new Dictionary<ResourceTypeSO, Transform>();
+        
+        
+        resourceTypeList = Resources.Load<ResourceTypeListSO>(nameof(ResourceTypeListSO));
 
         Transform resourceTemplate = transform.Find("Resource Template");
         resourceTemplate.gameObject.SetActive(false);
-
+        
         int index = 0;
         foreach (ResourceTypeSO resourceType in resourceTypeList.list)
         {
@@ -25,10 +32,26 @@ public class ResourcesUI : MonoBehaviour
 
             resourceTransform.Find("Image").GetComponent<Image>().sprite = resourceType.sprite;
 
-            int resourceAmount = ResourceManager.Instance.GetResourceAmount(resourceType);
-            resourceTransform.Find("Text").GetComponent<TextMeshProUGUI>().SetText(resourceAmount.ToString());
-            
+            resourceTypeTransformDictionary[resourceType] = resourceTransform;
             index++; 
+        }
+    }
+
+
+    private void Start()
+    {
+        UpdateResourceAmount();
+    }
+
+
+    private void UpdateResourceAmount()
+    {
+        foreach (ResourceTypeSO resourceType in resourceTypeList.list)
+        {
+            int resourceAmount = ResourceManager.Instance.GetResourceAmount(resourceType);
+            
+            Transform resourceTransform = resourceTypeTransformDictionary[resourceType];
+            resourceTransform.Find("Text").GetComponent<TextMeshProUGUI>().SetText(resourceAmount.ToString());
         }
     }
 }
