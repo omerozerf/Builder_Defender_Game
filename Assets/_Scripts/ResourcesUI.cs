@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ResourcesUI : MonoBehaviour
 {
@@ -20,6 +22,11 @@ public class ResourcesUI : MonoBehaviour
 
             float offsetAmount = -160f;
             resourceTransform.GetComponent<RectTransform>().anchoredPosition = new Vector2(offsetAmount * index, 0);
+
+            resourceTransform.Find("Image").GetComponent<Image>().sprite = resourceType.sprite;
+
+            int resourceAmount = ResourceManager.Instance.GetResourceAmount(resourceType);
+            resourceTransform.Find("Text").GetComponent<TextMeshProUGUI>().SetText(resourceAmount.ToString());
             
             index++; 
         }
